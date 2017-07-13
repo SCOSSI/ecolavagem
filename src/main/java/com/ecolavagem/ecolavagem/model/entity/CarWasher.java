@@ -1,7 +1,16 @@
 package com.ecolavagem.ecolavagem.model.entity;
 
-/**
- * Created by Alexandre S on 13/07/2017.
- */
+
 public class CarWasher {
+
+    private Localization localization;
+
+    public Localization getLocalization() {
+        return localization;
+    }
+
+    public void setLocalization(Localization localization) {
+        this.localization = localization;
+    }
+
 }
