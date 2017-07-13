@@ -4,10 +4,12 @@ import com.ecolavagem.ecolavagem.model.entity.CarWasher;
 import com.ecolavagem.ecolavagem.model.entity.Localization;
 import com.ecolavagem.ecolavagem.repository.CarWasherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class DistanceService {
 
     @Autowired
@@ -34,7 +36,7 @@ public class DistanceService {
      * @return boolean value indicates if its acceptable
      */
     private boolean isAcceptableDistanceBetween(Localization carWasherLocalization, Localization userLocalization) {
-        double distanceKilometers = distance(carWasherLocalization, userLocalization);
+        Double distanceKilometers = distance(carWasherLocalization, userLocalization);
         return (distanceKilometers < 100); //Todo: what is an acceptable distance to go? 1km? 2km? 100km?
     }
 
@@ -44,7 +46,7 @@ public class DistanceService {
      * @param localization2
      * @return distance in Kilometers
      */
-    private static double distance(Localization localization1, Localization localization2) {
+    public static Double distance(Localization localization1, Localization localization2) {
 
         double theta = localization1.getLongitude() - localization2.getLongitude();
         double dist = Math.sin(deg2rad(localization1.getLatitude()))
