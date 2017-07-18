@@ -1,42 +1,61 @@
 package com.ecolavagem.ecolavagem.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.ecolavagem.ecolavagem.model.entity.CarWasher;
+import com.ecolavagem.ecolavagem.model.entity.Localization;
+import com.ecolavagem.ecolavagem.repository.CarWasherRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
 public class DistanceService {
 
-    public static List<String> near(double latitude, double longitude){
+    @Autowired
+    private CarWasherRepository carWasherRepository;
 
-        //Lista de quem talvez atenda na distancia do usuário
-        /*List<Localization> quemTaPerto = sqlWhoIsNear(); // latituteColuna between latitute-1 and latitute+1
-                                                         // longitudeColuna between longitude-1 and longitude+1
-
-        List<String> perto;
-        for(quem : quemTaPerto){
-            Double kilometros = DistanceService.distance(latitude, longitude, 1,2);
-            boolean atende = quem.atendeNessaDistancia(kilometros);
-            if (atende) { perto.add(quem) };
-        }
-
-        //lista efetiva de quem tá perto e atende
-        return perto;*/
-        return new ArrayList<>();
+    /**
+     * This method search who is near based on latitude and longitude.
+     * @param latitude - indicated by GeoLocalization on mobile app.
+     * @param longitude - indicated by GeoLocalization on mobile app.
+     * @return A list that contains only workers available to accept the request.
+     */
+    public List<CarWasher> near(Double latitude, Double longitude){
+        Localization userLocalization = new Localization(latitude, longitude);
+        return carWasherRepository.findAll()
+                .stream()
+                .filter(carWasher -> isAcceptableDistanceBetween(carWasher.getLocalization(), userLocalization))
+                .collect(Collectors.toList());
     }
 
-    private static double distance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
+    /**
+     * Define if its acceptable distance to be available for the user's request.
+     * @param carWasherLocalization
+     * @param userLocalization
+     * @return boolean value indicates if its acceptable
+     */
+    private boolean isAcceptableDistanceBetween(Localization carWasherLocalization, Localization userLocalization) {
+        Double distanceKilometers = distance(carWasherLocalization, userLocalization);
+        return (distanceKilometers < 100); //Todo: what is an acceptable distance to go? 1km? 2km? 100km?
+    }
+
+    /**
+     * Calculate and return the distance between two localizations - composed by latitude and longitude.
+     * @param localization1
+     * @param localization2
+     * @return distance in Kilometers
+     */
+    public static Double distance(Localization localization1, Localization localization2) {
+
+        double theta = localization1.getLongitude() - localization2.getLongitude();
+        double dist = Math.sin(deg2rad(localization1.getLatitude()))
+                * Math.sin(deg2rad(localization2.getLatitude()))
+                + Math.cos(deg2rad(localization1.getLatitude()))
+                * Math.cos(deg2rad(localization2.getLatitude()))
                 * Math.cos(deg2rad(theta));
 
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        dist = dist * 1.609344;
-
-        return (dist);
+        return rad2deg(Math.acos(dist)) * 60 * 1.1515 * 1.609344;
     }
 
     private static double deg2rad(double deg) {
