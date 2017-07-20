@@ -1,14 +1,12 @@
 package com.ecolavagem.ecolavagem.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by gabriel on 12/07/17.
  */
 @Entity
+@Table(name = "car")
 public class CarEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -16,6 +14,17 @@ public class CarEntity {
     private String brand;
     private String model;
     private String plateNumber;
+    @ManyToOne
+    @JoinColumn(name="id_client")
+    private ClientEntity client;
+
+    public ClientEntity getClient() {
+        return client;
+    }
+
+    public void setClient(ClientEntity client) {
+        this.client = client;
+    }
 
     public Long getId() {
         return id;

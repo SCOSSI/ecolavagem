@@ -2,18 +2,20 @@ package com.ecolavagem.ecolavagem.model.entity;
 
 import com.ecolavagem.ecolavagem.model.Enum.PaymentTypeEnum;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by gabriel on 17/07/17.
  */
 @Entity
+@Table(name = "tb_client")
 public class ClientEntity extends UserEntity {
-    //private List<PaymentTypeEnum> paymentType;
-    //private PaymentTypeEnum paymentData;
+    @OneToMany(mappedBy="client",cascade = CascadeType.ALL)
+    private List<PaymentTypeEntity> paymentType;
     private String cpf;
-    //private List<CarEntity> cars;
+    @OneToMany(mappedBy="client",cascade = CascadeType.ALL)
+    private List<CarEntity> cars;
 
     /*public List<PaymentTypeEnum> getPaymentType() {
         return paymentType;
