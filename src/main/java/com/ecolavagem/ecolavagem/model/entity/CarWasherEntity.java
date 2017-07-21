@@ -6,16 +6,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="CarWasher")
-public class CarWasher extends UserEntity{
+public class CarWasherEntity extends UserEntity{
 
     @OneToOne
-    private Localization localization;
+    private LocalizationEntity localization;
 
-    public Localization getLocalization() {
+    public LocalizationEntity getLocalization() {
         return localization;
     }
 
-    public void setLocalization(Localization localization) {
+    public void setLocalization(LocalizationEntity localization) {
         this.localization = localization;
     }
 

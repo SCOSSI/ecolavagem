@@ -1,7 +1,7 @@
 package com.ecolavagem.ecolavagem.service;
 
-import com.ecolavagem.ecolavagem.model.entity.CarWasher;
-import com.ecolavagem.ecolavagem.model.entity.Localization;
+import com.ecolavagem.ecolavagem.model.entity.CarWasherEntity;
+import com.ecolavagem.ecolavagem.model.entity.LocalizationEntity;
 import com.ecolavagem.ecolavagem.repository.CarWasherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,11 +21,11 @@ public class DistanceService {
      * @param longitude - indicated by GeoLocalization on mobile app.
      * @return A list that contains only workers available to accept the request.
      */
-    public List<CarWasher> near(Double latitude, Double longitude){
-        Localization userLocalization = new Localization(latitude, longitude);
+    public List<CarWasherEntity> near(Double latitude, Double longitude){
+        LocalizationEntity userLocalization = new LocalizationEntity(latitude, longitude);
         return carWasherRepository.findAll()
                 .stream()
-                .filter(carWasher -> isAcceptableDistanceBetween(carWasher.getLocalization(), userLocalization))
+                .filter(carWasherEntity -> isAcceptableDistanceBetween(carWasherEntity.getLocalization(), userLocalization))
                 .collect(Collectors.toList());
     }
 
@@ -35,7 +35,7 @@ public class DistanceService {
      * @param userLocalization
      * @return boolean value indicates if its acceptable
      */
-    private boolean isAcceptableDistanceBetween(Localization carWasherLocalization, Localization userLocalization) {
+    private boolean isAcceptableDistanceBetween(LocalizationEntity carWasherLocalization, LocalizationEntity userLocalization) {
         Double distanceKilometers = distance(carWasherLocalization, userLocalization);
         return (distanceKilometers < 100); //Todo: what is an acceptable distance to go? 1km? 2km? 100km?
     }
@@ -46,7 +46,7 @@ public class DistanceService {
      * @param localization2
      * @return distance in Kilometers
      */
-    public static Double distance(Localization localization1, Localization localization2) {
+    public static Double distance(LocalizationEntity localization1, LocalizationEntity localization2) {
 
         double theta = localization1.getLongitude() - localization2.getLongitude();
         double dist = Math.sin(deg2rad(localization1.getLatitude()))

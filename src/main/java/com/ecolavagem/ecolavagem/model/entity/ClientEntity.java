@@ -17,22 +17,6 @@ public class ClientEntity extends UserEntity {
     @OneToMany(mappedBy="client",cascade = CascadeType.ALL)
     private List<CarEntity> cars;
 
-    /*public List<PaymentTypeEnum> getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(List<PaymentTypeEnum> paymentType) {
-        this.paymentType = paymentType;
-    }*/
-
-    /*public PaymentTypeEnum getPaymentData() {
-        return paymentData;
-    }
-
-    public void setPaymentData(PaymentTypeEnum paymentData) {
-        this.paymentData = paymentData;
-    }*/
-
     public String getCpf() {
         return cpf;
     }
@@ -41,11 +25,19 @@ public class ClientEntity extends UserEntity {
         this.cpf = cpf;
     }
 
-    /*public List<CarEntity> getCars() {
+    public List<PaymentTypeEntity> getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(List<PaymentTypeEntity> paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public List<CarEntity> getCars() {
         return cars;
     }
 
     public void setCars(List<CarEntity> cars) {
         this.cars = cars;
-    }*/
+    }
 }

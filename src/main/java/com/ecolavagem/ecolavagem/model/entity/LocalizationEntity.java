@@ -3,16 +3,17 @@ package com.ecolavagem.ecolavagem.model.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "localization")
-public class Localization {
+@Table(name = "tb_localization")
+public class LocalizationEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private Double latitude;
     private Double longitude;
+    private String dateTime;
 
-    public Localization(Double latitude, Double longitude) {
+    public LocalizationEntity(Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

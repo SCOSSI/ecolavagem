@@ -1,19 +1,26 @@
 package com.ecolavagem.ecolavagem.model.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by gabriel on 17/07/17.
  */
 @Entity
+@Table(name = "washer")
 public class WasherEntity extends UserEntity {
     private String cpf;
-   // private Location location;
-   // private AccountEntity account;
-   // private CompanyEntity company;
+    @OneToOne
+    private LocalizationEntity location;
+    @OneToOne
+    private CompanyAccountEntity account;
+    @ManyToOne
+    @JoinColumn(name="id_company")
+    private CompanyEntity company;
     private boolean checked;
-    //private List<String> comments;
+    @OneToMany(mappedBy="washer",cascade = CascadeType.ALL)
+    private List<WasherCommentEntity> comments;
+
     private String addressProof;
 
     public String getCpf() {
@@ -24,29 +31,6 @@ public class WasherEntity extends UserEntity {
         this.cpf = cpf;
     }
 
-    /*public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public AccountEntity getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountEntity account) {
-        this.account = account;
-    }
-
-    public CompanyEntity getCompany() {
-        return company;
-    }
-
-    public void setCompany(CompanyEntity company) {
-        this.company = company;
-    }*/
 
     public boolean isChecked() {
         return checked;

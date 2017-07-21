@@ -1,22 +1,21 @@
 package com.ecolavagem.ecolavagem.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by gabriel on 17/07/17.
  */
 @Entity
-public class AccountEntity {
+@Table(name = "tb_company_account")
+public class CompanyAccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
     private String bank;
     private String agency;
     private String number;
-    //private UserEntity owner;
+    @OneToOne
+    private CompanyEntity owner;
 
     public Long getId() {
         return id;
@@ -50,11 +49,5 @@ public class AccountEntity {
         this.number = number;
     }
 
-    /*public UserEntity getOwner() {
-        return owner;
-    }
 
-    public void setOwner(UserEntity owner) {
-        this.owner = owner;
-    }*/
 }

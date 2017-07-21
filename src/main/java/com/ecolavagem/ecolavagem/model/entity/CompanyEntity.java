@@ -1,25 +1,30 @@
 package com.ecolavagem.ecolavagem.model.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by gabriel on 17/07/17.
  */
 @Entity
+@Table(name = "tb_company")
 public class CompanyEntity extends UserEntity {
 
-    //private AccountEntity account;
+    @OneToOne
+    private CompanyAccountEntity account;
     private String cnpj;
     private String contratoSocial;
     private boolean checked;
-    //private List<String> comments;
+    @OneToMany(mappedBy="company",cascade = CascadeType.ALL)
+    private List<WasherEntity> washers;
+    @OneToMany(mappedBy="company",cascade = CascadeType.ALL)
+    private List<CompanyCommentEntity> comments;
 
-    /*public AccountEntity getAccount() {
+    /*public CompanyAccountEntity getAccount() {
         return account;
     }
 
-    public void setAccount(AccountEntity account) {
+    public void setAccount(CompanyAccountEntity account) {
         this.account = account;
     }*/
 
