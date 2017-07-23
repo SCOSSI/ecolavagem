@@ -11,10 +11,14 @@ public class CompanyCommentEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "comment")
     private String comment;
+
     @ManyToOne
     @JoinColumn(name="id_company")
     private CompanyEntity company;
+
     @ManyToOne
     @JoinColumn(name="id_client")
     private ClientEntity client;

@@ -11,9 +11,13 @@ import java.util.List;
 @Entity
 @Table(name = "tb_client")
 public class ClientEntity extends UserEntity {
+
     @OneToMany(mappedBy="client",cascade = CascadeType.ALL)
     private List<PaymentTypeEntity> paymentType;
+
+    @Column(name = "cpf")
     private String cpf;
+
     @OneToMany(mappedBy="client",cascade = CascadeType.ALL)
     private List<CarEntity> cars;
 

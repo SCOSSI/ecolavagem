@@ -11,9 +11,13 @@ public class CompanyAccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+
     private String bank;
+
     private String agency;
+
     private String number;
+
     @OneToOne
     private CompanyEntity owner;
 

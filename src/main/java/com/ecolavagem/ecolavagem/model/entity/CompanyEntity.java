@@ -17,16 +17,10 @@ public class CompanyEntity extends UserEntity {
     private boolean checked;
     @OneToMany(mappedBy="company",cascade = CascadeType.ALL)
     private List<WasherEntity> washers;
+
     @OneToMany(mappedBy="company",cascade = CascadeType.ALL)
     private List<CompanyCommentEntity> comments;
 
-    /*public CompanyAccountEntity getAccount() {
-        return account;
-    }
-
-    public void setAccount(CompanyAccountEntity account) {
-        this.account = account;
-    }*/
 
     public String getCnpj() {
         return cnpj;
@@ -53,4 +47,19 @@ public class CompanyEntity extends UserEntity {
     }
 
 
+    public List<WasherEntity> getWashers() {
+        return washers;
+    }
+
+    public void setWashers(List<WasherEntity> washers) {
+        this.washers = washers;
+    }
+
+    public List<CompanyCommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CompanyCommentEntity> comments) {
+        this.comments = comments;
+    }
 }

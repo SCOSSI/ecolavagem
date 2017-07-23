@@ -11,9 +11,16 @@ public class CarEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "brand")
     private String brand;
+
+    @Column(name = "model")
     private String model;
+
+    @Column(name = "plate_number")
     private String plateNumber;
+
     @ManyToOne
     @JoinColumn(name="id_client")
     private ClientEntity client;

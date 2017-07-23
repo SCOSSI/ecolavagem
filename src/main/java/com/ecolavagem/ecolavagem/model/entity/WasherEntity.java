@@ -49,4 +49,12 @@ public class WasherEntity extends UserEntity {
     public void setAddressProof(String addressProof) {
         this.addressProof = addressProof;
     }
+
+    public CompanyEntity getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyEntity company) {
+        this.company = company;
+    }
 }
