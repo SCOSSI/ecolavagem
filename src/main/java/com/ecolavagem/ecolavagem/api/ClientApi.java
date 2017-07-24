@@ -1,7 +1,6 @@
 package com.ecolavagem.ecolavagem.api;
 
 import com.ecolavagem.ecolavagem.api.output.UserOutput;
-import com.ecolavagem.ecolavagem.model.entity.CarWasherEntity;
 import com.ecolavagem.ecolavagem.model.entity.ClientEntity;
 import com.ecolavagem.ecolavagem.service.ClientService;
 import com.ecolavagem.ecolavagem.service.DistanceService;

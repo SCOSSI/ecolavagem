@@ -21,6 +21,7 @@ public abstract class UserEntity {
     private String phone;
     private char active;
     private int rating;
+    private String name;
 
     public Long getId() {
         return id;
@@ -92,5 +93,13 @@ public abstract class UserEntity {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

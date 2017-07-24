@@ -6,20 +6,20 @@ import javax.persistence.*;
  * Created by gabriel on 17/07/17.
  */
 @Entity
-@Table(name = "tb_company_account")
-public class CompanyAccountEntity {
+@Table(name = "tb_account")
+public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
+    @Column(name="bank")
     private String bank;
 
+    @Column(name="agency")
     private String agency;
 
+    @Column(name="number")
     private String number;
-
-    @OneToOne
-    private CompanyEntity owner;
 
     public Long getId() {
         return id;

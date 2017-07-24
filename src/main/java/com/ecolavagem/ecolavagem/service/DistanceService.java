@@ -1,8 +1,8 @@
 package com.ecolavagem.ecolavagem.service;
 
-import com.ecolavagem.ecolavagem.model.entity.CarWasherEntity;
 import com.ecolavagem.ecolavagem.model.entity.LocalizationEntity;
-import com.ecolavagem.ecolavagem.repository.CarWasherRepository;
+import com.ecolavagem.ecolavagem.model.entity.WasherEntity;
+import com.ecolavagem.ecolavagem.repository.WasherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class DistanceService {
 
     @Autowired
-    private CarWasherRepository carWasherRepository;
+    private WasherRepository washerRepository;
 
     /**
      * This method search who is near based on latitude and longitude.
@@ -21,11 +21,11 @@ public class DistanceService {
      * @param longitude - indicated by GeoLocalization on mobile app.
      * @return A list that contains only workers available to accept the request.
      */
-    public List<CarWasherEntity> near(Double latitude, Double longitude){
+    public List<WasherEntity> near(Double latitude, Double longitude){
         LocalizationEntity userLocalization = new LocalizationEntity(latitude, longitude);
-        return carWasherRepository.findAll()
+        return washerRepository.findAll()
                 .stream()
-                .filter(carWasherEntity -> isAcceptableDistanceBetween(carWasherEntity.getLocalization(), userLocalization))
+                .filter(washerEntity -> isAcceptableDistanceBetween(washerEntity.getLocalization(), userLocalization))
                 .collect(Collectors.toList());
     }
 

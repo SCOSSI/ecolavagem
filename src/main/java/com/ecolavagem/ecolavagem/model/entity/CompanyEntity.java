@@ -2,6 +2,7 @@ package com.ecolavagem.ecolavagem.model.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by gabriel on 17/07/17.
@@ -11,15 +12,22 @@ import java.util.List;
 public class CompanyEntity extends UserEntity {
 
     @OneToOne
-    private CompanyAccountEntity account;
+    private AccountEntity account;
+
+    @Column(name = "CNPJ")
     private String cnpj;
+
+    @Column(name = "contrato_social")
     private String contratoSocial;
-    private boolean checked;
+
+    @Column(name = "checked")
+    private Boolean checked;
+
     @OneToMany(mappedBy="company",cascade = CascadeType.ALL)
     private List<WasherEntity> washers;
 
     @OneToMany(mappedBy="company",cascade = CascadeType.ALL)
-    private List<CompanyCommentEntity> comments;
+    private List<CommentEntity> comments;
 
 
     public String getCnpj() {
@@ -55,11 +63,19 @@ public class CompanyEntity extends UserEntity {
         this.washers = washers;
     }
 
-    public List<CompanyCommentEntity> getComments() {
+    public List<CommentEntity> getComments() {
         return comments;
     }
 
-    public void setComments(List<CompanyCommentEntity> comments) {
+    public void setComments(List<CommentEntity> comments) {
         this.comments = comments;
+    }
+
+    public Optional<AccountEntity> getAccount() {
+        return Optional.ofNullable(account);
+    }
+
+    public void setAccount(AccountEntity account) {
+        this.account = account;
     }
 }
