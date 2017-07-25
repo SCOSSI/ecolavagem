@@ -21,8 +21,24 @@ public class DistanceService {
      * @param longitude - indicated by GeoLocalization on mobile app.
      * @return A list that contains only workers available to accept the request.
      */
-    public List<WasherEntity> near(Double latitude, Double longitude){
+    public List<WasherEntity> requestWasher(Double latitude, Double longitude){
         LocalizationEntity userLocalization = new LocalizationEntity(latitude, longitude);
+
+        List<WasherEntity> washerEntities = listWashersNear(userLocalization);
+
+        /*
+        washerEntities.forEach(washerEntity ->
+            //send a notification request for these washers
+            //the first who accept, we need to send back to client
+        );
+
+
+        */
+
+        return washerEntities;
+    }
+
+    private List<WasherEntity> listWashersNear(LocalizationEntity userLocalization) {
         return washerRepository.findAll()
                 .stream()
                 .filter(washerEntity -> isAcceptableDistanceBetween(washerEntity.getLocalization(), userLocalization))

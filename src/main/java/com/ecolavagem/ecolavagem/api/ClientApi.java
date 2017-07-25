@@ -2,6 +2,7 @@ package com.ecolavagem.ecolavagem.api;
 
 import com.ecolavagem.ecolavagem.api.output.UserOutput;
 import com.ecolavagem.ecolavagem.model.entity.ClientEntity;
+import com.ecolavagem.ecolavagem.model.entity.WasherEntity;
 import com.ecolavagem.ecolavagem.service.ClientService;
 import com.ecolavagem.ecolavagem.service.DistanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class ClientApi {
     }
 
     //Latitute e Longitude do Cel
-    @RequestMapping(value = "near/{latitude}/{longitude }", method = RequestMethod.GET)
+    @RequestMapping(value = "requestWasher/{latitude}/{longitude }", method = RequestMethod.GET)
     public ResponseEntity<?> near(@PathVariable Double latitude, @PathVariable Double longitude){
-        List<CarWasherEntity> near = distanceService.near(latitude, longitude);
-        return ResponseEntity.ok(near);
+        List<WasherEntity> washer = distanceService.requestWasher(latitude, longitude);
+        return ResponseEntity.ok(washer);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -47,10 +48,8 @@ public class ClientApi {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ClientEntity> createClient(@RequestBody ClientEntity clientEntity) {
-
         return new ResponseEntity<ClientEntity>(clientService.createClient(clientEntity), HttpStatus.CREATED);
     }
-
 
 
 }
