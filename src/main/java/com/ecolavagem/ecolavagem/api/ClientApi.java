@@ -1,8 +1,8 @@
 package com.ecolavagem.ecolavagem.api;
 
 import com.ecolavagem.ecolavagem.api.output.UserOutput;
-import com.ecolavagem.ecolavagem.model.entity.ClientEntity;
-import com.ecolavagem.ecolavagem.model.entity.WasherEntity;
+import com.ecolavagem.ecolavagem.model.entity.Client;
+import com.ecolavagem.ecolavagem.model.entity.Washer;
 import com.ecolavagem.ecolavagem.service.ClientService;
 import com.ecolavagem.ecolavagem.service.DistanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,22 +33,22 @@ public class ClientApi {
     //Latitute e Longitude do Cel
     @RequestMapping(value = "requestWasher/{latitude}/{longitude }", method = RequestMethod.GET)
     public ResponseEntity<?> near(@PathVariable Double latitude, @PathVariable Double longitude){
-        List<WasherEntity> washer = distanceService.requestWasher(latitude, longitude);
+        List<Washer> washer = distanceService.requestWasher(latitude, longitude);
         return ResponseEntity.ok(washer);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<ClientEntity>> listAll() {
-        List<ClientEntity> clients = clientService.getClients();
+    public ResponseEntity<List<Client>> listAll() {
+        List<Client> clients = clientService.getClients();
         if(clients.isEmpty()){
-            return new ResponseEntity<List<ClientEntity>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<Client>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<ClientEntity>>(clients, HttpStatus.OK);
+        return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<ClientEntity> createClient(@RequestBody ClientEntity clientEntity) {
-        return new ResponseEntity<ClientEntity>(clientService.createClient(clientEntity), HttpStatus.CREATED);
+    public ResponseEntity<Client> createClient(@RequestBody Client client) {
+        return new ResponseEntity<Client>(clientService.createClient(client), HttpStatus.CREATED);
     }
 
 

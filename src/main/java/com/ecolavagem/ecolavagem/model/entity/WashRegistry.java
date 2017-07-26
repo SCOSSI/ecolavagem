@@ -1,4 +1,4 @@
-package com.ecolavagem.ecolavagem.model.entities_generated;
+package com.ecolavagem.ecolavagem.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;

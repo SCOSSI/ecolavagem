@@ -1,6 +1,6 @@
 package com.ecolavagem.ecolavagem.service;
 
-import com.ecolavagem.ecolavagem.model.entity.ClientEntity;
+import com.ecolavagem.ecolavagem.model.entity.Client;
 import com.ecolavagem.ecolavagem.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
-    public List<ClientEntity> getClients(){
+    public List<Client> getClients(){
         return clientRepository.findAll();
     }
 
-    public ClientEntity createClient(ClientEntity clientEntity){
+    public Client createClient(Client clientEntity){
         return clientRepository.save(clientEntity);
     }
 }

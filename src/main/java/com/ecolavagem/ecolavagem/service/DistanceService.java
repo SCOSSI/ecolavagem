@@ -1,7 +1,7 @@
 package com.ecolavagem.ecolavagem.service;
 
-import com.ecolavagem.ecolavagem.model.entity.LocalizationEntity;
-import com.ecolavagem.ecolavagem.model.entity.WasherEntity;
+import com.ecolavagem.ecolavagem.model.entity.Localization;
+import com.ecolavagem.ecolavagem.model.entity.Washer;
 import com.ecolavagem.ecolavagem.repository.WasherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,10 +21,10 @@ public class DistanceService {
      * @param longitude - indicated by GeoLocalization on mobile app.
      * @return A list that contains only workers available to accept the request.
      */
-    public List<WasherEntity> requestWasher(Double latitude, Double longitude){
-        LocalizationEntity userLocalization = new LocalizationEntity(latitude, longitude);
+    public List<Washer> requestWasher(Double latitude, Double longitude){
+        Localization userLocalization = new Localization(latitude, longitude);
 
-        List<WasherEntity> washerEntities = listWashersNear(userLocalization);
+        List<Washer> washerEntities = listWashersNear(userLocalization);
 
         /*
         washerEntities.forEach(washerEntity ->
@@ -38,10 +38,10 @@ public class DistanceService {
         return washerEntities;
     }
 
-    private List<WasherEntity> listWashersNear(LocalizationEntity userLocalization) {
+    private List<Washer> listWashersNear(Localization userLocalization) {
         return washerRepository.findAll()
                 .stream()
-                .filter(washerEntity -> isAcceptableDistanceBetween(washerEntity.getLocalization(), userLocalization))
+                .filter(washer -> isAcceptableDistanceBetween(washer.getLocalization(), userLocalization))
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +51,7 @@ public class DistanceService {
      * @param userLocalization
      * @return boolean value indicates if its acceptable
      */
-    private boolean isAcceptableDistanceBetween(LocalizationEntity carWasherLocalization, LocalizationEntity userLocalization) {
+    private boolean isAcceptableDistanceBetween(Localization carWasherLocalization, Localization userLocalization) {
         Double distanceKilometers = distance(carWasherLocalization, userLocalization);
         return (distanceKilometers < 100); //Todo: what is an acceptable distance to go? 1km? 2km? 100km?
     }
@@ -62,7 +62,7 @@ public class DistanceService {
      * @param localization2
      * @return distance in Kilometers
      */
-    public static Double distance(LocalizationEntity localization1, LocalizationEntity localization2) {
+    public static Double distance(Localization localization1, Localization localization2) {
 
         double theta = localization1.getLongitude() - localization2.getLongitude();
         double dist = Math.sin(deg2rad(localization1.getLatitude()))

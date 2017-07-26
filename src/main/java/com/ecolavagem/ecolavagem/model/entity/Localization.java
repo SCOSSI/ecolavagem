@@ -1,4 +1,4 @@
-package com.ecolavagem.ecolavagem.model.entities_generated;
+package com.ecolavagem.ecolavagem.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -42,6 +42,11 @@ public class Localization implements Serializable {
 	private List<Washer> washers;
 
 	public Localization() {
+	}
+
+	public Localization(Double latitude, Double longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public int getIdLocalization() {

@@ -1,27 +1,47 @@
 package com.ecolavagem.ecolavagem.model.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by gabriel on 12/07/17.
  */
 
-@Entity
-@Inheritance
-public abstract class UserEntity {
+
+@MappedSuperclass
+public abstract class User{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String email;
     private String password;
-    private String lastLogin;
-    private String createdDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name="LAST_LOGIN")
+    private Date lastLogin;
+    @Temporal(TemporalType.DATE)
+    private Date created;
     private String photo;
     private String phone;
     private char active;
     private int rating;
     private String name;
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
     public Long getId() {
         return id;
@@ -45,22 +65,6 @@ public abstract class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(String lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public String getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
     }
 
     public String getPhoto() {

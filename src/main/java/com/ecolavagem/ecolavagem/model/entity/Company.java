@@ -1,4 +1,4 @@
-package com.ecolavagem.ecolavagem.model.entities_generated;
+package com.ecolavagem.ecolavagem.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -11,19 +11,20 @@ import java.util.List;
  */
 @Entity
 @Table(name = "COMPANY")
-public class Company implements Serializable {
+public class Company extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="ID_COMPANY")
-	private int idCompany;
-
-	private byte checked;
+	private Boolean checked;
 
 	private String cnpj;
 
-	private String name;
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
 
 	//bi-directional many-to-one association to Commentary
 	@OneToMany(mappedBy="company")
@@ -40,21 +41,6 @@ public class Company implements Serializable {
 	public Company() {
 	}
 
-	public int getIdCompany() {
-		return this.idCompany;
-	}
-
-	public void setIdCompany(int idCompany) {
-		this.idCompany = idCompany;
-	}
-
-	public byte getChecked() {
-		return this.checked;
-	}
-
-	public void setChecked(byte checked) {
-		this.checked = checked;
-	}
 
 	public String getCnpj() {
 		return this.cnpj;
@@ -64,13 +50,6 @@ public class Company implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public List<Commentary> getCommentaries() {
 		return this.commentaries;

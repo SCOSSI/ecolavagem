@@ -1,8 +1,7 @@
-package com.ecolavagem.ecolavagem.model.entities_generated;
+package com.ecolavagem.ecolavagem.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 
@@ -12,34 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "CLIENT")
-public class Client implements Serializable {
+public class Client extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="ID_CLIENT")
-	private int idClient;
-
-	private byte active;
-
-	@Temporal(TemporalType.DATE)
-	private Date created;
-
-	private String email;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="LAST_LOGIN")
-	private Date lastLogin;
-
-	private String name;
-
-	private String pass;
-
-	private String phone;
-
-	private String photo;
-
-	private double rating;
 
 	//bi-directional many-to-one association to Car
 	@OneToMany(mappedBy="client")
@@ -61,85 +34,6 @@ public class Client implements Serializable {
 	public Client() {
 	}
 
-	public int getIdClient() {
-		return this.idClient;
-	}
-
-	public void setIdClient(int idClient) {
-		this.idClient = idClient;
-	}
-
-	public byte getActive() {
-		return this.active;
-	}
-
-	public void setActive(byte active) {
-		this.active = active;
-	}
-
-	public Date getCreated() {
-		return this.created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getLastLogin() {
-		return this.lastLogin;
-	}
-
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPass() {
-		return this.pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	public String getPhone() {
-		return this.phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getPhoto() {
-		return this.photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-
-	public double getRating() {
-		return this.rating;
-	}
-
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
 
 	public List<Car> getCars() {
 		return this.cars;
